@@ -5,12 +5,20 @@ const ExpenseForm = (props) => {
   const [enteredTitle, setEnteredTitle] = useState("");
   const [enteredAmount, setEnteredAmount] = useState("");
   const [enteredDate, setEnteredDate] = useState("");
-
+  
+  const [visible, setVisible] = useState(false);
   //   const [userInput, setUserInput] = useState({
   //     enteredTitle: "",
   //     enteredAmount: "",
   //     enteredDate: "",
   //   });
+
+  const showFormHandler = () => {
+    setVisible(true);
+  };
+  const showButtonHandler = () => {
+    setVisible(false);
+  };
   const enteredTitleHandler = (event) => {
     console.log(enteredTitle);
     setEnteredTitle(event.target.value);
@@ -54,7 +62,7 @@ const ExpenseForm = (props) => {
     setEnteredDate("");
     setEnteredAmount("");
   };
-  return (
+  return visible ? (
     <form onSubmit={submitHandler}>
       <div className="new-expense__controls">
         <div className="new-expense__control">
@@ -85,11 +93,23 @@ const ExpenseForm = (props) => {
             onChange={enteredDateHandler}
           />
         </div>
+
         <div className="new-expense__actions">
-          <button type="submit">Submit</button>
+          <button type="cancel" onClick={showButtonHandler}>
+            Cancel
+          </button>
+        </div>
+        <div className="new-expense__actions">
+          <button type="submit">Add Expense</button>
         </div>
       </div>
     </form>
+  ) : (
+    <div className="new-expense__action">
+      <button type="button" onClick={showFormHandler}>
+        Add Expense
+      </button>
+    </div>
   );
 };
 
